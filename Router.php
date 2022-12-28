@@ -16,7 +16,18 @@ class Router
     }
 
     public function comprobarRutas() {
-        $currentUrl = $_SERVER['REQUEST_URI'] === '' ? '/' :  $_SERVER['REQUEST_URI'] ;
+        
+        $currentUrl = $_SERVER['REQUEST_URI'] === null ? '/' :  $_SERVER['REQUEST_URI'] ; //PATH_INFO
+
+        // errores de reedireccionamiento
+        if(str_starts_with($currentUrl, "/servicios/actualizar?id=")) {
+            $currentUrl = "/servicios/actualizar";
+        }
+        if(str_starts_with($currentUrl, "/confirmar-cuenta?token=")) {
+            $currentUrl = "/confirmar-cuenta";
+        }
+        
+        
         $method = $_SERVER['REQUEST_METHOD'];
 
         if ($method === 'GET') {
